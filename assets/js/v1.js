@@ -10,6 +10,9 @@
 //
 // Блок функций: телефоны выезжают сбоку не дальше чем на 360 px (или из-за края
 // экрана, если до него ближе), без прозрачности, и встают на место, когда видны полностью.
+// Если браузер умеет анимацию по прокрутке (Safari 26+, Chrome 115+), выезд ведёт сам
+// браузер (v1.css, @supports animation-timeline) - без отставания от пальца на iPhone;
+// здесь тогда только считаем расстояние выезда (--v1-dx). Иначе двигаем сами.
 //
 // При «Уменьшении движения» ничего не двигаем: остаются конечные положения из v1.css.
 //
@@ -113,6 +116,22 @@
   var vh = window.innerHeight;
   var touch = window.matchMedia("(pointer: coarse)").matches; // телефон / планшет
 
+  var cssSlides = !!(window.CSS && CSS.supports && CSS.supports("animation-timeline: view()"));
+  var dists = [];       // на сколько px сдвинут каждый телефон в начале выезда
+  var measuredW = -1;   // при какой ширине окна посчитаны dists
+
+  function measure() {
+    measuredW = vw;
+    dists = slides.map(function (el, i) {
+      var w = el.offsetWidth;
+      var pr = el.parentElement.getBoundingClientRect();
+      var restLeft = pr.left + (pr.width - w) / 2;
+      var edge = i % 2 ? restLeft + w + 24 : vw - restLeft + 24;
+      return Math.min(edge, 360) * (i % 2 ? -1 : 1);
+    });
+    if (cssSlides) slides.forEach(function (el, i) { el.style.setProperty("--v1-dx", dists[i] + "px"); });
+  }
+
   function update() {
     ticking = false;
     var w = document.documentElement.clientWidth;
@@ -141,23 +160,21 @@
     sideR.style.opacity = sideOp;
 
     // --- Телефоны в блоке функций: чётные выезжают справа, нечётные слева ---
-    slides.forEach(function (el, i) {
-      var parent = el.parentElement;
-      var w = el.offsetWidth;
-      var pr = parent.getBoundingClientRect();
-      var restLeft = pr.left + (pr.width - w) / 2;
-      var edge = i % 2 ? restLeft + w + 24 : vw - restLeft + 24;
-      var dist = Math.min(edge, 360) * (i % 2 ? -1 : 1);
+    if (vw !== measuredW) measure();
+    if (cssSlides) return;
 
+    // Сначала все замеры, потом все сдвиги: иначе браузер пересчитывает раскладку
+    // на каждом телефоне. Сдвиг идёт только по X, поэтому вертикаль от него не зависит.
+    var rects = slides.map(function (el) { return el.getBoundingClientRect(); });
+    slides.forEach(function (el, i) {
       var r = 1;
       if (canScroll) {
-        // Сдвиг идёт только по X, поэтому вертикальная позиция от него не зависит.
-        var rc = el.getBoundingClientRect();
-        var ph = rc.height || 600;
-        r = clamp((vh - rc.top - ph * 0.05) / ph);
+        var ph = rects[i].height || 600;
+        r = clamp((vh - rects[i].top - ph * 0.05) / ph);
       }
-      var dx = Math.round((1 - easeOutQuad(r)) * dist);
-      el.style.transform = "translateX(" + dx + "px)";
+      // Без округления до целого пикселя: на экранах iPhone так движение без ступенек.
+      var dx = (1 - easeOutQuad(r)) * dists[i];
+      el.style.transform = "translate3d(" + dx.toFixed(1) + "px, 0, 0)";
     });
   }
 
@@ -169,7 +186,8 @@
   }
 
   window.addEventListener("scroll", onScroll, { passive: true });
-  window.addEventListener("resize", onScroll);
-  window.addEventListener("load", onScroll);
+  // После загрузки картинок и при смене размера окна раскладка могла измениться - пересчитать.
+  window.addEventListener("resize", function () { measuredW = -1; onScroll(); });
+  window.addEventListener("load", function () { measuredW = -1; onScroll(); });
   update();
 })();

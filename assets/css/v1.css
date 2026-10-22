@@ -195,6 +195,25 @@ body.v1 {
 .v1-row-phone { flex: 1 1 300px; display: flex; justify-content: center; }
 .v1-phone-stack { position: relative; width: min(310px, 72vw); } /* без transition: двигается ровно с прокруткой */
 @media (max-width: 759px) { .v1-phone-stack { width: 48vw; } } /* на телефоне скриншоты в 1,5 раза меньше */
+/* Выезд сбоку: телефон - отдельный слой на видеокарте, чтобы двигался без рывков. */
+[data-v1-slide] { will-change: transform; }
+/* Если браузер умеет анимацию по прокрутке (Safari 26+, Chrome 115+), выезд ведёт он сам,
+   в одном потоке с прокруткой. Расстояние --v1-dx считает assets/js/v1.js.
+   Начинается, когда телефон показался на 5%, заканчивается, когда виден целиком;
+   кривая - как easeOutQuad в v1.js. */
+@supports (animation-timeline: view()) {
+  @media (prefers-reduced-motion: no-preference) {
+    [data-v1-slide] {
+      animation: v1-slide-in linear both;
+      animation-timeline: view();
+      animation-range: entry 5% entry 100%;
+    }
+  }
+}
+@keyframes v1-slide-in {
+  from { transform: translateX(var(--v1-dx, 0px)); animation-timing-function: cubic-bezier(0.5, 1, 0.89, 1); }
+  to { transform: none; }
+}
 .v1-phone-stack img { width: 100%; height: auto; }
 /* Смена режима - поворот телефона вокруг вертикальной оси (assets/js/v1.js). */
 .v1-phone-stack { perspective: 1400px; }
