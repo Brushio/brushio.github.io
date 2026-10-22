@@ -79,7 +79,7 @@ body.v1 {
 
 /* ---------- Первый экран ---------- */
 
-.v1-hero { padding: 0 clamp(20px, 5vw, 48px); text-align: center; }
+.v1-hero { padding: 0 clamp(20px, 5vw, 48px); text-align: center; overflow-x: clip; } /* боковые телефоны не вылезают за край экрана */
 .v1-hero-copy {
   /* JS ставит --hero-min ≈ 66% высоты окна, чтобы снизу была видна треть телефона. */
   min-height: var(--hero-min, auto);
@@ -134,8 +134,12 @@ body.v1 {
 }
 .v1-side-l { transform: translateX(-250px) scale(0.8) rotate(-7deg); }
 .v1-side-r { transform: translateX(250px) scale(0.8) rotate(7deg); }
-/* На узких экранах боковых телефонов нет. */
-@media (max-width: 759px) { .v1 .v1-side { display: none; } }
+/* На узких экранах боковые телефоны разводим меньше - выглядывают из-за центрального
+   (то же расстояние, что в assets/js/v1.js: 28% ширины окна). */
+@media (max-width: 759px) {
+  .v1-side-l { transform: translateX(-28vw) scale(0.8) rotate(-7deg); }
+  .v1-side-r { transform: translateX(28vw) scale(0.8) rotate(7deg); }
+}
 
 /* ---------- Большая фраза ---------- */
 
@@ -147,14 +151,15 @@ body.v1 {
 /* ---------- Функции ---------- */
 
 .v1-features {
-  max-width: 1120px;
-  margin: 0 auto;
+  /* Блок во всю ширину и обрезает по краю экрана телефоны, которые выезжают сбоку:
+     иначе страница на iPhone становится шире экрана и при прокрутке ходит вбок. */
+  overflow-x: clip;
   padding: 0 clamp(20px, 5vw, 48px);
   display: flex;
   flex-direction: column;
   gap: clamp(96px, 12vw, 160px);
 }
-.v1-row { display: flex; flex-wrap: wrap; align-items: center; gap: 48px 80px; }
+.v1-row { width: 100%; max-width: 1024px; margin: 0 auto; display: flex; flex-wrap: wrap; align-items: center; gap: 48px 80px; }
 .v1-row-rev { flex-direction: row-reverse; }
 .v1-row-text { flex: 1 1 380px; min-width: 0; }
 .v1-kicker { margin: 0 0 16px !important; font-size: 17px; font-weight: 600; color: #0C9B89; }
@@ -185,7 +190,7 @@ body.v1 {
 /* Плашка PRO на метке режима */
 .v1-pro { padding: 2px 7px; border-radius: 6px; background: #0C9B89; color: #fff; font-size: 11px; font-weight: 700; letter-spacing: 0.04em; }
 .v1-row-phone { flex: 1 1 300px; display: flex; justify-content: center; }
-.v1-phone-stack { position: relative; width: min(310px, 72vw); transition: transform 120ms linear; }
+.v1-phone-stack { position: relative; width: min(310px, 72vw); } /* без transition: двигается ровно с прокруткой */
 .v1-phone-stack img { width: 100%; height: auto; }
 /* Смена режима - поворот телефона вокруг вертикальной оси (assets/js/v1.js). */
 .v1-phone-stack { perspective: 1400px; }
@@ -333,7 +338,6 @@ body.v1 {
 
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
-  .v1-phone-stack { transition: none; }
   .v1-card { transition: border-color 0.2s; }
   .v1-card:hover, .v1-social-links a:hover { transform: none; }
 }

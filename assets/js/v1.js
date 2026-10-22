@@ -2,7 +2,10 @@
 //
 // Первый экран: текст занимает ~66% высоты окна, снизу видна треть телефона.
 // За первые полэкрана прокрутки телефон чуть поднимается и увеличивается,
-// по бокам разъезжаются ещё два экрана (на ширине < 760 px их нет).
+// по бокам разъезжаются ещё два экрана (на ширине < 760 px - меньше, выглядывают из-за центрального).
+//
+// Высоту окна берём одну и меняем только при смене ширины (поворот телефона):
+// в Safari на iPhone она меняется, когда прячется панель адреса, и страница бы дёргалась.
 //
 // Блок функций: телефоны выезжают сбоку не дальше чем на 360 px (или из-за края
 // экрана, если до него ближе), без прозрачности, и встают на место, когда видны полностью.
@@ -104,18 +107,21 @@
   function easeOutQuad(p) { return 1 - (1 - p) * (1 - p); }
 
   var ticking = false;
+  // Ширина видимой области без полосы прокрутки (на телефоне innerWidth бывает шире экрана).
+  var vw = document.documentElement.clientWidth;
+  var vh = window.innerHeight;
+  var touch = window.matchMedia("(pointer: coarse)").matches; // телефон / планшет
 
   function update() {
     ticking = false;
-    var vh = window.innerHeight;
-    // Ширина видимой области без полосы прокрутки (на телефоне innerWidth бывает шире экрана).
-    var vw = document.documentElement.clientWidth;
+    var w = document.documentElement.clientWidth;
+    if (!touch || w !== vw) { vw = w; vh = window.innerHeight; }
     var canScroll = document.documentElement.scrollHeight > vh + 40;
 
     // --- Первый экран ---
     var he = easeOutCubic(canScroll ? clamp(window.scrollY / (vh * 0.5)) : 1);
     var narrow = vw < 760;
-    var spread = narrow ? 0 : 250;
+    var spread = narrow ? Math.round(vw * 0.28) : 250;
 
     copy.style.setProperty("--hero-min", canScroll ? Math.round(vh * 0.66 - 60) + "px" : "auto");
     var phoneW = canScroll
