@@ -121,7 +121,8 @@ body.v1 {
   z-index: 1;
   width: 100%;
   height: auto;
-  filter: drop-shadow(0 40px 80px rgba(0, 0, 0, 0.55));
+  /* Без тени (drop-shadow): Safari пересчитывал её размытие на каждом кадре прокрутки. */
+  will-change: transform; /* отдельный слой: при прокрутке двигается готовая картинка */
 }
 .v1-side {
   position: absolute;
@@ -131,6 +132,7 @@ body.v1 {
   width: 100%;
   height: auto;
   filter: brightness(0.9);
+  will-change: transform, opacity; /* затемнение рисуется один раз, а не на каждом кадре */
 }
 .v1-side-l { transform: translateX(-250px) scale(0.8) rotate(-7deg); }
 .v1-side-r { transform: translateX(250px) scale(0.8) rotate(7deg); }

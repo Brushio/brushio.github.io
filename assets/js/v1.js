@@ -107,6 +107,9 @@
   var slides = Array.prototype.slice.call(document.querySelectorAll("[data-v1-slide]"));
 
   function clamp(v) { return Math.max(0, Math.min(1, v)); }
+  function setVar(el, name, value) {
+    if (el.style.getPropertyValue(name) !== value) el.style.setProperty(name, value);
+  }
   function easeOutCubic(p) { return 1 - Math.pow(1 - p, 3); }
   function easeOutQuad(p) { return 1 - (1 - p) * (1 - p); }
 
@@ -143,12 +146,13 @@
     var narrow = vw < 760;
     var phoneW;
 
-    copy.style.setProperty("--hero-min", canScroll ? Math.round(vh * 0.66 - 60) + "px" : "auto");
+    // Размеры записываем, только если они изменились: лишняя запись - лишний пересчёт страницы.
+    setVar(copy, "--hero-min", canScroll ? Math.round(vh * 0.66 - 60) + "px" : "auto");
     if (narrow) phoneW = Math.round(vw * 0.42);
     else if (canScroll) phoneW = Math.round(Math.min(vw * 0.74, Math.max(300, Math.min(560, vh * 0.5))));
     else phoneW = Math.round(Math.min(390, vw * 0.74));
     var spread = narrow ? Math.round(phoneW * 0.56) : 250;
-    phones.style.setProperty("--phone-w", phoneW + "px");
+    setVar(phones, "--phone-w", phoneW + "px");
 
     var heroY = canScroll ? Math.round((1 - he) * vh * 0.03) : 0;
     main.style.transform = "translateY(" + heroY + "px) scale(" + (0.9 + 0.1 * he).toFixed(3) + ")";
