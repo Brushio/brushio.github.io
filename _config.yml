@@ -1,5 +1,5 @@
 # Сайт Brushio - https://brushio.github.io/
-# Сборка: GitHub Actions (.github/workflows/pages.yml), локально - см. README.md.
+# Сборка: GitHub Actions (.github/workflows/pages.yml), локально - см. BrushioSite/docs/site-notes.md.
 
 title: Brushio
 url: "https://brushio.github.io"
