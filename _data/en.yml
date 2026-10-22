@@ -1,0 +1,199 @@
+# Тексты лендинга на английском.
+# В текстах - короткий дефис «-», не длинное тире.
+
+language_name: "English"
+
+meta:
+  title: "Brushio - Smart Toothbrushing Timer and Dental Care"
+  description: "Brush properly with a guided timer, keep your streak, track every dentist visit tooth by tooth and know when to replace your toothbrush. For iPhone and Apple Watch."
+
+app_store_button: "Download on the App Store"
+
+faq:
+  title: "Questions and answers"
+  items:
+    - q: "Do I need an account?"
+      a: "No. Brushio works without any registration. Your data is tied to your Apple Account through iCloud, which you already use."
+    - q: "Where is my data stored?"
+      a: "On your devices and in your private iCloud. Brushio has no servers, so the developer has no access to your data."
+    - q: "What does Brushio do with Apple Health?"
+      a: "It only writes your toothbrushing sessions to Apple Health if you allow it. It never reads any health data."
+    - q: "Does it work on Apple Watch?"
+      a: "Yes. You can start and follow a brushing session right from your wrist. The Watch app needs watchOS 10.6 or later."
+    - q: "Which devices are supported?"
+      a: "iPhone with iOS 17 or later and Apple Watch with watchOS 10.6 or later."
+    - q: "What’s included in Brushio Pro?"
+      a: "The “Dental Arch” brushing mode, more brushing duration options, unlimited extra sessions, statistics for 6 months and a year, photos of dentist visit documents, extra toothbrush replacement periods and the PDF report. You can subscribe monthly (with the first 3 days free) or yearly, or buy it once for lifetime access."
+    - q: "How do I cancel Brushio Pro?"
+      a: "Open Settings on your iPhone, tap your name, then Subscriptions, and choose Brushio. A lifetime purchase never needs to be canceled."
+    - q: "Which languages does Brushio speak?"
+      a: "English, Ukrainian, Russian, German, French, Spanish, Brazilian Portuguese, Japanese and Simplified Chinese."
+    - q: "How can I contact you?"
+      a: "Write to brushio.support@gmail.com - we read every message."
+
+footer:
+  privacy: "Privacy Policy"
+  terms: "Terms of Use"
+  support: "Support"
+
+# Подпись кнопки переключателя языков (для экранных читалок).
+lang_label: "Language"
+
+# ---------------------------------------------------------------------------
+# Тексты главной (/). Раздел называется v1 - по макету «вариант 1». Перевод украинских текстов
+# из _data/uk.yml. Править вместе с украинскими.
+# ---------------------------------------------------------------------------
+v1:
+  nav:
+    label: "Main menu"
+    features: "Features"
+    faq: "FAQ"
+    support: "Support"
+    download: "Download"
+
+  hero:
+    eyebrow: "Brushio for iPhone and Apple Watch"
+    headline: "Brush your teeth right"
+    headline_muted: "the way dentists recommend."
+    lead: "Brushio guides you through every zone of your teeth as you brush, remembers every detail of your dentist visits and keeps track of your toothbrush."
+    # Три телефона первого экрана (имена файлов из screens/<язык>/).
+    screen_left: dentistDetail
+    alt_left: "Dentist visit details in Brushio"
+    screen_center: timer-chewing
+    alt_center: "Brushio brushing timer: chewing surfaces zone"
+    screen_right: toothMap
+    alt_right: "Brushio 3D tooth map"
+
+  statement: 'Every brushing. <span class="w">Every tooth.</span> Every dentist visit. <span class="a">All in one app.</span>'
+
+  rows:
+    - kicker: "Timer"
+      title: "Sixteen zones.<br>Every surface of your teeth."
+      text: "The timer splits your teeth into 16 zones - outer, inner and chewing surfaces - and guides you through them one by one. Each zone comes with a hint on how to hold and move your brush: manual, electric or sonic. A vibration and a sound tell you when to move on."
+      chip_groups:
+        - label: "Three display modes:"
+          chips:
+            - name: "3D Jaw"
+              screen: timer
+              alt: "Brushing timer in “3D Jaw” mode"
+            - name: "Combo Timer"
+              screen: timer2
+              alt: "Brushing timer in “Combo Timer” mode"
+            - name: "Dental Arch"
+              screen: timer3
+              alt: "Brushing timer in “Dental Arch” mode"
+              pro: true
+      screen: timer
+      alt: "Brushing timer with a 3D jaw"
+    - kicker: "Dentist"
+      title: "Every visit at your fingertips."
+      text: "Log checkups and treatments: diagnosis, procedure, clinic and address, cost and notes. And Brushio will sum it all up and remind you when it’s time for your next checkup."
+      chips:
+        - "Checkups"
+        - "Treatments"
+        - "Cost"
+        - name: "Document photos"
+          pro: true
+      screen: dentistDetail
+      alt: "Visit details: diagnosed teeth, cost, clinic"
+    - kicker: "Tooth Map"
+      title: "Every tooth has its own story."
+      text: "Tap a tooth on the 3D model to see everything that happened to it: diagnoses, fillings, crowns, extractions. Teeth with a diagnosis or treatment are highlighted, so problem spots stand out at once."
+      screen: toothMap
+      alt: "3D tooth map with treatment history"
+    - kicker: "Calendar"
+      title: "The whole month at a glance."
+      text: "Color dots show morning and evening brushing, extra sessions, dentist visits and symptoms. Tap a day to see when and how long you brushed. Felt pain or noticed bleeding gums? Add a symptom so you don’t forget to tell your dentist about it at your next visit."
+      chips:
+        - name: "Morning"
+          dot: "#FFD64F"
+        - name: "Evening"
+          dot: "#4A9EFF"
+        - name: "Extra"
+          dot: "#A68CFA"
+        - name: "Dentist"
+          dot: "#FF6B8A"
+        - name: "Symptom"
+          dot: "#FF9F0A"
+      screen: calendar
+      alt: "Calendar of brushing, visits and symptoms"
+    - kicker: "Statistics"
+      title: "Streaks you’ll want to keep."
+      text: "Your current and longest streak, brushing over the last week, how well each zone is brushed in percent, total time, number of sessions and perfect brushings - all your stats at a glance."
+      text2: "Plus a summary of your dentist visits and 20 achievements that motivate you to keep your streak going."
+      chips:
+        - "Streaks"
+        - "Zone coverage"
+        - "Achievements"
+        - "Stats for different periods"
+      screen: statistic
+      alt: "Statistics: streaks, weekly activity, zone coverage"
+    - kicker: "Toothbrush"
+      title: "Your toothbrush, always in good shape."
+      text: "Brushio remembers your toothbrush type and brand and counts the days you’ve used it - because worn bristles clean worse and collect bacteria. The app keeps a history of all your toothbrushes and can remind you in advance to buy a new one."
+      screen: toothbrush
+      alt: "“My Toothbrush” screen: 43 of 90 days"
+
+  platforms:
+    title: "Not just on iPhone."
+    title_muted: "Apple Watch, widgets, iCloud and Health."
+    items:
+      - icon: watch
+        title: "Apple Watch"
+        text: "The timer with zone hints and vibration on your wrist, and your streak and weekly brushing right on the watch face."
+      - icon: widgets
+        title: "Widgets"
+        text: "Your streak, weekly activity and toothbrush status on the Home Screen and Lock Screen."
+      - icon: live
+        title: "Live Activity"
+        text: "Your brushing progress on the Lock Screen and in the Dynamic Island."
+      - icon: cloud
+        title: "iCloud"
+        text: "Your data is stored in your iCloud, so nothing gets lost when you change phones."
+      - icon: health
+        title: "Apple Health"
+        text: "Brushing sessions are saved to Health."
+      - icon: doc
+        title: "PDF report"
+        pro: true
+        text: "Share your symptoms, treatment history and brushing stats with your dentist as a handy PDF document."
+
+  final: "Take a step towards healthier teeth"
+  social: "Follow Brushio on social media"
+
+  footer:
+    label: "Footer links"
+    rights: "© 2026 Brushio. Made in Ukraine."
+
+# ---------------------------------------------------------------------------
+# Support page (/support/). Перевод украинских текстов из _data/uk.yml.
+# ---------------------------------------------------------------------------
+support:
+  heading: "Support"
+  lead: "Have a question or something isn't working? Write to us - we read every message."
+  button: "Contact us"
+  details_title: "To help us help you faster, please include:"
+  details:
+    - "your iPhone or Apple Watch model and iOS / watchOS version;"
+    - "your Brushio version (Settings → About → Version);"
+    - "what happened and how to reproduce it;"
+    - "a screenshot, if possible."
+  faq_title: "Common issues"
+  faq:
+    - q: "My data doesn't sync between devices"
+      a: "Open Settings → About → iCloud Sync in Brushio to see the sync status. If there's an error, tap the row and Brushio will show the reason. Make sure all your devices are signed in to the same Apple Account, your iCloud storage isn't full and you're online."
+    - q: "How do I restore my Brushio Pro purchase?"
+      a: "In Brushio, open Settings → Brushio Pro and tap Restore. Use the same Apple Account you made the purchase with."
+    - q: "Reminders don't arrive"
+      a: "Check that reminders are turned on in Brushio under Settings → Reminders → Manage Reminders, and that notifications are allowed in the Settings app on your iPhone → Notifications → Brushio. A Focus mode can also hide them."
+    - q: "Brushing sessions don't appear in Health"
+      a: "Turn on Apple Health in Brushio under Settings → Preferences. Then open your profile in the Health app and check that Brushio has access. Brushio only writes brushing sessions and never reads anything."
+    - q: "How do I change the app language?"
+      a: "In Brushio, go to Settings → Preferences → Language. This opens the Settings app on your iPhone, where you can choose a language just for Brushio."
+    - q: "How do I cancel my subscription?"
+      a: "Open the Settings app on your iPhone → your name → Subscriptions → Brushio. A lifetime purchase never needs to be canceled."
+    - q: "How do I delete all my data?"
+      a: "You can delete individual records in the app. To delete everything, delete Brushio from your iPhone, then remove its data from iCloud: Settings → your name → iCloud → Manage Account Storage → Brushio."
+  more_before: "More answers in the"
+  more_link: "FAQ"
+  more_after: "on the home page."

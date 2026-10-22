@@ -1,0 +1,15 @@
+{%- comment -%} Подвал сайта - общий для главной и юридических страниц. {%- endcomment -%}
+{%- assign t = site.data[page.lang] -%}
+{%- assign v = t.v1 -%}
+{%- assign support_page = site.pages | where: "ref", "support" | where: "lang", page.lang | first -%}
+{%- if support_page %}{% assign support_href = support_page.url | relative_url %}{% else %}{% assign support_href = site.support_url | relative_url %}{% endif -%}
+<footer class="v1-footer">
+  <div class="v1-footer-inner">
+    <span>{{ v.footer.rights }}</span>
+    <nav aria-label="{{ v.footer.label }}">
+      <a href="{{ site.privacy_url | relative_url }}">{{ t.footer.privacy }}</a>
+      <a href="{{ site.terms_url | relative_url }}">{{ t.footer.terms }}</a>
+      <a href="{{ support_href }}">{{ t.footer.support }}</a>
+    </nav>
+  </div>
+</footer>

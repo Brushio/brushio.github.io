@@ -1,0 +1,10 @@
+{%- comment -%}
+  Официальный значок Apple «Download on the App Store» (одинаковый для всех языков).
+  Правила Apple: не перекрашивать, не менять пропорции, высота не меньше 40 px.
+  Использование: {% include app-store-badge.html height=56 %}
+{%- endcomment -%}
+{%- assign t = site.data[page.lang] -%}
+{%- assign h = include.height | default: 56 -%}
+<a class="app-store-badge" href="{{ site.app_store_url }}">
+  <img src="{{ '/assets/img/app-store-badge.svg' | relative_url }}" alt="{{ t.app_store_button }}" height="{{ h }}" width="{{ h | times: 2.9916 | round }}">
+</a>

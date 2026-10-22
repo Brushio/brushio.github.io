@@ -1,0 +1,42 @@
+# Сайт Brushio - https://brushio.github.io/
+# Сборка: GitHub Actions (.github/workflows/pages.yml), локально - см. README.md.
+
+title: Brushio
+url: "https://brushio.github.io"
+baseurl: ""
+
+# Языки сайта. Тексты каждого языка лежат в _data/<код>.yml.
+# Первый - основной, он живёт в корне сайта (/), остальные - в /<код>/.
+languages:
+  - en
+  - uk
+
+app_store_url: "https://apps.apple.com/app/brushio/id6771890992"
+support_email: "brushio.support@gmail.com"
+
+# Соцсети (адреса без служебных меток ?utm_… и т.п.). Иконки - assets/img/social/.
+social:
+  - name: "TikTok"
+    url: "https://www.tiktok.com/@brushio.app"
+    icon: "/assets/img/social/tiktok.jpg"
+  - name: "Instagram"
+    url: "https://www.instagram.com/brushio.app/"
+    icon: "/assets/img/social/instagram.jpg"
+
+# Страницы сайта. Support в шапке и подвале ведёт на версию на языке страницы
+# (support.md, uk/support.md), этот адрес - запасной.
+# Старые адреса brushio-legal не трогать: на них ссылается приложение.
+privacy_url: "/privacy/"
+terms_url: "/terms/"
+support_url: "/support/"
+
+markdown: kramdown
+permalink: pretty
+
+exclude:
+  - README.md
+  - Gemfile
+  - Gemfile.lock
+  - scripts
+  - vendor
+  - .jekyll-cache

@@ -1,0 +1,19 @@
+{%- comment -%}
+  Ряд меток варианта 1. Метка - строка или {name, pro, dot, screen, alt}:
+  pro: true - плашка PRO; dot - цветная точка перед названием (цвет, например "#FFD64F");
+  screen - метка становится кнопкой и переключает скриншот
+  в этом же блоке (assets/js/v1.js). Нажата та, чей screen совпадает с include.current.
+  {% include v1-chips.html chips=group.chips current=row.screen %}
+{%- endcomment -%}
+<div class="v1-chips">
+  {%- for chip in include.chips -%}
+    {%- if chip.screen -%}
+      {%- include screen-path.html name=chip.screen -%}
+      <button type="button" class="v1-chip" data-v1-mode="{{ screen_path | relative_url }}" data-v1-mode-alt="{{ chip.alt }}" aria-pressed="{% if chip.screen == include.current %}true{% else %}false{% endif %}">{{ chip.name }}{% if chip.pro %} <b class="v1-pro">PRO</b>{% endif %}</button>
+    {%- elsif chip.name -%}
+      <span>{% if chip.dot %}<i class="v1-dot" style="background: {{ chip.dot }}"></i>{% endif %}{{ chip.name }}{% if chip.pro %} <b class="v1-pro">PRO</b>{% endif %}</span>
+    {%- else -%}
+      <span>{{ chip }}</span>
+    {%- endif -%}
+  {%- endfor -%}
+</div>

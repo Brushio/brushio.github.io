@@ -1,0 +1,58 @@
+/* Выпадающий переключатель языков (_includes/lang-menu.html). Общий для всех вариантов страниц. */
+
+.lang-menu { position: relative; flex: none; }
+
+.lang-menu summary {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  height: 36px;
+  padding: 0 12px;
+  border-radius: 999px;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  color: #c9ccd9;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  list-style: none;
+  user-select: none;
+  transition: background-color 0.2s, color 0.2s;
+}
+.lang-menu summary::-webkit-details-marker { display: none; }
+.lang-menu summary:hover,
+.lang-menu[open] summary { background: rgba(255, 255, 255, 0.08); color: #fff; }
+.lang-menu summary:focus-visible { outline: 2px solid #0C9B89; outline-offset: 2px; }
+.lang-menu-chevron { transition: transform 0.2s; }
+.lang-menu[open] .lang-menu-chevron { transform: rotate(180deg); }
+
+.lang-menu ul {
+  position: absolute;
+  top: calc(100% + 8px);
+  right: 0;
+  z-index: 40;
+  min-width: 190px;
+  margin: 0;
+  padding: 6px;
+  list-style: none;
+  background: #1B2039;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 14px;
+  box-shadow: 0 20px 40px -12px rgba(0, 0, 0, 0.6);
+}
+.lang-menu li a {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 12px;
+  border-radius: 9px;
+  color: #fff;
+  font-size: 15px;
+  text-decoration: none;
+}
+.lang-menu li a:hover { background: rgba(255, 255, 255, 0.07); text-decoration: none; }
+.lang-menu-check { color: #0C9B89; visibility: hidden; flex: none; }
+.lang-menu a[aria-current] .lang-menu-check { visibility: visible; }
+
+@media (prefers-reduced-motion: reduce) {
+  .lang-menu summary, .lang-menu-chevron { transition: none; }
+}

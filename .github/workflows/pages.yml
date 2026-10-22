@@ -1,0 +1,51 @@
+# Сборка и публикация сайта на GitHub Pages при каждом пуше в main.
+# В настройках репозитория: Settings → Pages → Source = GitHub Actions.
+
+name: Deploy site
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/configure-pages@v5
+
+      - name: Build with Jekyll
+        uses: actions/jekyll-build-pages@v1
+        with:
+          source: ./
+          destination: ./_site
+
+      # Битые ссылки, все ли языки на месте, нет ли сторонних ресурсов.
+      - name: Check site
+        run: bash scripts/check-site.sh _site
+
+      - uses: actions/upload-pages-artifact@v3
+        if: github.event_name != 'pull_request'
+
+  deploy:
+    if: github.event_name != 'pull_request'
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4

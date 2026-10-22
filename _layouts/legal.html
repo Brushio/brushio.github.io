@@ -1,0 +1,23 @@
+{%- comment -%}
+  Юридические страницы (Privacy Policy, Terms) в стиле варианта 1.
+  Текст документа - в самой странице (privacy.md и т.п.), стили - .legal в assets/css/v1.css.
+{%- endcomment -%}
+<!DOCTYPE html>
+<html lang="{{ page.lang }}">
+<head>
+{% include head.html %}
+</head>
+<body class="v1">
+
+{% include v1-header.html %}
+
+<main class="legal">
+  <article class="legal-doc">
+{{ content }}
+  </article>
+</main>
+
+{% include v1-footer.html %}
+
+</body>
+</html>

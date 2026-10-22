@@ -1,0 +1,23 @@
+{%- comment -%}
+  Шапка сайта - общая для главной и юридических страниц.
+  Ссылки меню ведут на главную на языке страницы.
+{%- endcomment -%}
+{%- assign t = site.data[page.lang] -%}
+{%- assign v = t.v1 -%}
+{%- assign v1_home = site.pages | where: "ref", "home" | where: "lang", page.lang | first -%}
+{%- if v1_home %}{% assign v1_url = v1_home.url | relative_url %}{% else %}{% assign v1_url = '/' | relative_url %}{% endif -%}
+{%- assign support_page = site.pages | where: "ref", "support" | where: "lang", page.lang | first -%}
+{%- if support_page %}{% assign support_href = support_page.url | relative_url %}{% else %}{% assign support_href = site.support_url | relative_url %}{% endif -%}
+<header class="v1-header">
+  <nav class="v1-nav" aria-label="{{ v.nav.label }}">
+    <a class="v1-brand" href="{{ v1_url }}">
+      <img class="v1-logo" src="{{ '/assets/img/icon-256.png' | relative_url }}" alt="" width="30" height="30">Brushio</a>
+    <div class="v1-menu">
+      <a href="{{ v1_url }}#v1-features">{{ v.nav.features }}</a>
+      <a href="{{ v1_url }}#v1-faq">{{ v.nav.faq }}</a>
+      <a href="{{ support_href }}">{{ v.nav.support }}</a>
+    </div>
+    {% include lang-menu.html %}
+    <a class="v1-download" href="{{ site.app_store_url }}">{{ v.nav.download }}</a>
+  </nav>
+</header>

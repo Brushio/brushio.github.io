@@ -1,0 +1,38 @@
+{%- comment -%}
+  Выпадающий переключатель языков. Языки - из site.languages (_config.yml),
+  названия - language_name в _data/<язык>.yml.
+  Ведёт на ту же страницу на другом языке (общий ref в front matter).
+  Если у страницы есть ref, в меню только языки, на которые она переведена;
+  если перевода нет совсем (пока Privacy и Terms) - переключатель не показывается.
+  Страница без ref ведёт на главную выбранного языка.
+  Работает без JS (<details>); assets/js/lang-menu.js только закрывает его по клику мимо и Esc.
+{%- endcomment -%}
+{%- assign t = site.data[page.lang] -%}
+{%- assign lang_count = site.languages.size -%}
+{%- if page.ref %}{% assign lang_count = site.pages | where: "ref", page.ref | size %}{% endif -%}
+{%- if lang_count > 1 -%}
+<details class="lang-menu" data-lang-menu>
+  <summary aria-label="{{ t.lang_label }}: {{ t.language_name }}">
+    <svg class="lang-menu-globe" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"></circle><path d="M3 12h18"></path><path d="M12 3a14 14 0 0 1 0 18"></path><path d="M12 3a14 14 0 0 0 0 18"></path></svg>
+    <span>{{ page.lang | upcase }}</span>
+    <svg class="lang-menu-chevron" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"></path></svg>
+  </summary>
+  <ul>
+    {%- for code in site.languages %}
+      {%- assign target = nil %}
+      {%- if page.ref %}{% assign target = site.pages | where: "ref", page.ref | where: "lang", code | first %}{% endif %}
+      {%- if page.ref and target == nil %}{% continue %}{% endif %}
+      {%- if target %}
+        {%- assign href = target.url %}
+      {%- elsif code == site.languages[0] %}
+        {%- assign href = '/' %}
+      {%- else %}
+        {%- assign href = '/' | append: code | append: '/' %}
+      {%- endif %}
+    <li><a href="{{ href | relative_url }}" hreflang="{{ code }}" lang="{{ code }}"{% if code == page.lang %} aria-current="page"{% endif %}>
+      <svg class="lang-menu-check" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12l5 5 9-10"></path></svg>
+      {{ site.data[code].language_name }}</a></li>
+    {%- endfor %}
+  </ul>
+</details>
+{%- endif -%}

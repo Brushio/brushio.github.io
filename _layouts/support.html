@@ -1,0 +1,50 @@
+{%- comment -%}
+  Страница поддержки. Тексты - в _data/<язык>.yml, ключ support.
+  Вопросы - те же блоки, что FAQ на главной (.v1-faq), остальное - стили .legal / .support в assets/css/v1.css.
+{%- endcomment -%}
+{%- assign t = site.data[page.lang] -%}
+{%- assign s = t.support -%}
+{%- assign home = site.pages | where: "ref", "home" | where: "lang", page.lang | first -%}
+<!DOCTYPE html>
+<html lang="{{ page.lang }}">
+<head>
+{% include head.html %}
+</head>
+<body class="v1">
+
+{% include v1-header.html %}
+
+<main class="legal support">
+  <article class="legal-doc">
+    <h1>{{ s.heading }}</h1>
+    <p class="support-lead">{{ s.lead }}</p>
+    <p class="support-contact">
+      <a class="v1-download support-button" href="mailto:{{ site.support_email }}?subject=Brushio%20Support">{{ s.button }}</a>
+      <a href="mailto:{{ site.support_email }}?subject=Brushio%20Support">{{ site.support_email }}</a>
+    </p>
+
+    <h2>{{ s.details_title }}</h2>
+    <ul>
+      {%- for item in s.details %}
+      <li>{{ item }}</li>
+      {%- endfor %}
+    </ul>
+
+    <h2 id="issues">{{ s.faq_title }}</h2>
+    <div class="v1-faq-list support-faq">
+      {%- for item in s.faq %}
+      <details>
+        <summary>{{ item.q }}</summary>
+        <p>{{ item.a }}</p>
+      </details>
+      {%- endfor %}
+    </div>
+
+    <p class="support-more">{{ s.more_before }} <a href="{{ home.url | relative_url }}#v1-faq">{{ s.more_link }}</a> {{ s.more_after }}</p>
+  </article>
+</main>
+
+{% include v1-footer.html %}
+
+</body>
+</html>

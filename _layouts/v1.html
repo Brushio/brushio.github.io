@@ -1,0 +1,108 @@
+{%- comment -%}
+  Вариант 1 «Apple-стиль» - перенесён из Claude Design (макет Main.dc.html).
+  Тексты - в _data/<язык>.yml, ключ v1 (вопросы - общий ключ faq). Анимации - assets/js/v1.js, стили - assets/css/v1.css.
+{%- endcomment -%}
+{%- assign t = site.data[page.lang] -%}
+{%- assign v = t.v1 -%}
+<!DOCTYPE html>
+<html lang="{{ page.lang }}">
+<head>
+{% include head.html %}
+</head>
+<body class="v1">
+
+{% include v1-header.html %}
+
+<section class="v1-hero" data-v1-hero>
+  <div class="v1-hero-copy">
+    <p class="v1-hero-eyebrow">{{ v.hero.eyebrow }}</p>
+    <h1>{{ v.hero.headline }} <span>{{ v.hero.headline_muted }}</span></h1>
+    <p class="v1-hero-lead">{{ v.hero.lead }}</p>
+    <div class="v1-hero-actions">
+      {% include app-store-badge.html height=58 %}
+    </div>
+  </div>
+
+  <div class="v1-hero-phones">
+    {% include screen.html name=v.hero.screen_left alt=v.hero.alt_left class="v1-side v1-side-l" %}
+    {% include screen.html name=v.hero.screen_right alt=v.hero.alt_right class="v1-side v1-side-r" %}
+    {% include screen.html name=v.hero.screen_center alt=v.hero.alt_center class="v1-hero-main" attrs='fetchpriority="high"' %}
+  </div>
+</section>
+
+<section class="v1-statement">
+  <p>{{ v.statement }}</p>
+</section>
+
+<section id="v1-features" class="v1-features">
+  {%- for row in v.rows %}
+  {%- assign odd = forloop.index0 | modulo: 2 %}
+  <div class="v1-row{% if odd == 1 %} v1-row-rev{% endif %}">
+    <div class="v1-row-text">
+      <p class="v1-kicker">{{ row.kicker }}</p>
+      <h2>{{ row.title }}</h2>
+      <p class="v1-row-lead">{{ row.text }}</p>
+      {%- if row.text2 %}
+      <p class="v1-row-lead v1-row-lead-more">{{ row.text2 }}</p>
+      {%- endif %}
+      {%- for group in row.chip_groups %}
+      <p class="v1-chips-label">{{ group.label }}</p>
+      {% include v1-chips.html chips=group.chips current=row.screen %}
+      {%- endfor %}
+      {%- if row.chips %}
+      {% include v1-chips.html chips=row.chips %}
+      {%- endif %}
+    </div>
+    <div class="v1-row-phone"><div class="v1-phone-stack" data-v1-slide>{% include screen.html name=row.screen alt=row.alt attrs='loading="lazy"' %}</div></div>
+  </div>
+  {%- endfor %}
+</section>
+
+<section class="v1-platforms">
+  <h2>{{ v.platforms.title }} <span>{{ v.platforms.title_muted }}</span></h2>
+  <div class="v1-cards">
+    {%- for item in v.platforms.items %}
+    <div class="v1-card">
+      {% include v1-icon.html name=item.icon %}
+      <h3>{{ item.title }}{% if item.pro %} <b class="v1-pro">PRO</b>{% endif %}</h3>
+      <p>{{ item.text }}</p>
+    </div>
+    {%- endfor %}
+  </div>
+</section>
+
+<section id="v1-faq" class="v1-faq">
+  <h2>{{ t.faq.title }}</h2>
+  <div class="v1-faq-list">
+    {%- for item in t.faq.items %}
+    <details>
+      <summary>{{ item.q }}</summary>
+      <p>{{ item.a }}</p>
+    </details>
+    {%- endfor %}
+  </div>
+</section>
+
+<section class="v1-final">
+  <h2>{{ v.final }}</h2>
+  <div class="v1-final-btn">
+    {% include app-store-badge.html height=58 %}
+  </div>
+  {%- comment -%} Соцсети: адреса и иконки - в _config.yml (social). {%- endcomment %}
+  <div class="v1-social">
+    <p>{{ v.social }}</p>
+    <div class="v1-social-links">
+      {%- for s in site.social %}
+      <a href="{{ s.url }}" target="_blank" rel="noopener">
+        <img src="{{ s.icon | relative_url }}" alt="" width="40" height="40" loading="lazy">
+        <span>{{ s.name }}</span>
+      </a>
+      {%- endfor %}
+    </div>
+  </div>
+</section>
+
+{% include v1-footer.html %}
+
+</body>
+</html>

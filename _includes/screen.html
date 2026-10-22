@@ -1,0 +1,9 @@
+{%- comment -%}
+  Скриншот приложения на языке страницы: assets/img/screens/<язык>/<name>.avif.
+  Если такого экрана на этом языке нет - берётся английский.
+  Копии делает scripts/make-screens.swift из ../design/screens/<язык>/<name>.png.
+
+  {% include screen.html name="timer" alt="..." class="..." attrs='loading="lazy"' %}
+{%- endcomment -%}
+{%- include screen-path.html name=include.name -%}
+<img{% if include.class %} class="{{ include.class }}"{% endif %} src="{{ screen_path | relative_url }}" alt="{{ include.alt }}" width="720" height="1460"{% if include.attrs %} {{ include.attrs }}{% endif %}>

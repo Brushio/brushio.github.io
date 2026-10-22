@@ -1,0 +1,10 @@
+{%- comment -%}
+  Путь к скриншоту на языке страницы; нет такого экрана на этом языке - английский.
+  Ничего не выводит, а кладёт результат в переменную screen_path:
+  {% include screen-path.html name="timer" %}{{ screen_path | relative_url }}
+{%- endcomment -%}
+{%- assign screen_path = '/assets/img/screens/' | append: page.lang | append: '/' | append: include.name | append: '.avif' -%}
+{%- assign screen_file = site.static_files | where: "path", screen_path | first -%}
+{%- unless screen_file -%}
+  {%- assign screen_path = '/assets/img/screens/' | append: site.languages[0] | append: '/' | append: include.name | append: '.avif' -%}
+{%- endunless -%}
