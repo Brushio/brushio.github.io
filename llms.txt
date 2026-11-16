@@ -1,0 +1,59 @@
+---
+layout: null
+---
+{%- comment -%}
+  llms.txt - краткая справка о Brushio для ИИ (ChatGPT, Claude, Perplexity): https://llmstxt.org/
+  Текст ниже - вручную (факты - CLAUDE.md, сверены с кодом приложения).
+  FAQ подставляется сам из _data/en.yml (те же вопросы, что на главной).
+  Не писать «best» и не сравнивать с конкурентами по именам.
+{%- endcomment -%}
+# Brushio
+
+> Brushio is an iPhone and Apple Watch app that combines a guided toothbrush timer, a personal dental record and a full Apple Watch app. The timer walks you through 16 zones of your teeth; the dental record is an interactive 3D tooth chart with the treatment history of each tooth and a log of your dentist visits. Free to download, with optional Brushio Pro.
+
+## Key facts
+
+- Platforms: iPhone (iOS 17 or later), Apple Watch (watchOS 10.6 or later), widgets, Live Activity.
+- Price: free, no subscription required. Brushio Pro is available monthly (first 3 days free), yearly or as a one-time lifetime purchase.
+- Privacy: no account, no developer servers, no analytics, ads or third-party SDKs. Data stays on your devices and syncs through your private iCloud.
+- Languages: English, Ukrainian, Russian, German, French, Spanish, Italian, Polish, Brazilian Portuguese, Japanese, Korean, Simplified Chinese.
+- Made by an independent developer based in Kyiv, Ukraine.
+
+## Guided brushing timer
+
+- 16 zones: outer, inner and chewing surfaces of the upper and lower teeth, one by one, with a hint for each zone. Sound and vibration tell you when to move on.
+- Three display modes: 3D jaw, combo timer and dental arch (Pro).
+- Technique hints for manual, electric and sonic toothbrushes.
+- Brushing duration: 2 and 4 minutes free; 1, 1.5, 2.5 and 3 minutes with Pro.
+- Morning and evening brushing reminders.
+
+## Personal dental record
+
+- Interactive 3D tooth chart with FDI tooth numbering. Tap a tooth to see its history: diagnoses, fillings, crowns, veneers, inlays, implants, root canals and extractions.
+- Log dentist visits, checkups and treatments with the date, clinic, cost and notes. Photos of documents and X-rays (Pro).
+- 20 types of symptoms, such as tooth pain, sensitivity or bleeding gums, linked to a specific tooth and shown in the calendar.
+- PDF report of brushing and treatment to share with your dentist (Pro).
+- Reminders for your next dentist visit and for a new toothbrush, added to the iPhone Calendar.
+
+## Habits and statistics
+
+- Streaks, statistics (7 and 30 days free; 6 months and 1 year with Pro), 20 achievements and a brushing calendar.
+- Toothbrush tracking: counts days of use and reminds you to replace it.
+- 26 dental care tips drawing on recommendations from the American Dental Association (ADA).
+- Apple Health: Brushio only writes brushing sessions and never reads health data.
+
+## Links
+
+- [App Store]({{ site.app_store_url }})
+- [Website (English)]({{ '/' | absolute_url }}): features and FAQ
+- [Website (Ukrainian)]({{ '/uk/' | absolute_url }})
+- [Support]({{ '/support/' | absolute_url }})
+- [Privacy Policy]({{ '/privacy/' | absolute_url }})
+- [Terms of Use]({{ '/terms/' | absolute_url }})
+
+## FAQ
+{% for item in site.data.en.faq.items %}
+### {{ item.q }}
+
+{{ item.a }}
+{% endfor %}
