@@ -31,6 +31,11 @@ terms_url: "/terms/"
 support_url: "/support/"
 
 markdown: kramdown
+
+# sitemap.xml для поисковиков собирается сам из всех страниц (плагин есть в GitHub Pages).
+plugins:
+  - jekyll-sitemap
+
 permalink: pretty
 
 exclude:

@@ -1,0 +1,39 @@
+{%- comment -%}
+  Скрытая разметка для поисковиков и ИИ (schema.org, JSON-LD) - только на главной.
+  1. MobileApplication: что это за приложение, платформы, цена, ссылка на App Store.
+  2. FAQPage: те же вопросы и ответы, что в блоке FAQ на странице (_data/<язык>.yml, faq).
+  Рейтинг и отзывы не указываем: их пока мало, а выдумывать нельзя.
+{%- endcomment -%}
+{%- assign t = site.data[page.lang] -%}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "MobileApplication",
+  "name": "Brushio",
+  "description": {{ t.meta.description | jsonify }},
+  "url": {{ page.url | absolute_url | jsonify }},
+  "image": {{ '/assets/img/icon-512.png' | absolute_url | jsonify }},
+  "downloadUrl": {{ site.app_store_url | jsonify }},
+  "operatingSystem": "iOS 17.0 or later, watchOS 10.6 or later",
+  "applicationCategory": "HealthApplication",
+  "inLanguage": {{ page.lang | jsonify }},
+  "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+  "author": { "@type": "Organization", "name": "Brushio", "url": {{ '/' | absolute_url | jsonify }} }
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "inLanguage": {{ page.lang | jsonify }},
+  "mainEntity": [
+    {%- for item in t.faq.items %}
+    {
+      "@type": "Question",
+      "name": {{ item.q | jsonify }},
+      "acceptedAnswer": { "@type": "Answer", "text": {{ item.a | jsonify }} }
+    }{% unless forloop.last %},{% endunless %}
+    {%- endfor %}
+  ]
+}
+</script>

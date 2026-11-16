@@ -19,6 +19,7 @@
 <meta name="twitter:card" content="summary">
 
 <link rel="icon" type="image/png" sizes="64x64" href="{{ '/assets/img/favicon-64.png' | relative_url }}">
+{%- if page.layout == "v1" %}{% include json-ld.html %}{% endif %}
 <link rel="apple-touch-icon" href="{{ '/assets/img/apple-touch-icon.png' | relative_url }}">
 {%- comment -%} Та же страница на других языках (по общему ref в front matter). {%- endcomment -%}
 {%- if page.ref %}
