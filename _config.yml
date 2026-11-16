@@ -14,6 +14,10 @@ languages:
 app_store_url: "https://apps.apple.com/app/brushio/id6771890992"
 support_email: "brushio.support@gmail.com"
 
+# Подтверждение прав на сайт в Google Search Console (мета-тег на всех страницах).
+# Не удалять, пока сайт добавлен в Search Console.
+google_site_verification: "UyYzKDEBotvTrhnCepJKRbbMt4r3nkvx3a9lVqGi5zM"
+
 # Соцсети (адреса без служебных меток ?utm_… и т.п.). Иконки - assets/img/social/.
 social:
   - name: "TikTok"

@@ -6,6 +6,9 @@
 <title>{{ page_title }}</title>
 <meta name="description" content="{{ page_description }}">
 <meta name="theme-color" content="#14192D">
+{%- if site.google_site_verification %}
+<meta name="google-site-verification" content="{{ site.google_site_verification }}">
+{%- endif %}
 <meta name="color-scheme" content="dark">
 <link rel="canonical" href="{{ page.url | absolute_url }}">
 <meta name="apple-itunes-app" content="app-id=6771890992">
