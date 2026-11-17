@@ -9,6 +9,7 @@ on:
   pull_request:
   workflow_dispatch:
 
+# Версии шагов - на Node.js 24 (Node.js 20 GitHub отключает). Обновлено 17.11.2026.
 permissions:
   contents: read
   pages: write
@@ -22,9 +23,9 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
 
-      - uses: actions/configure-pages@v5
+      - uses: actions/configure-pages@v6
 
       - name: Build with Jekyll
         uses: actions/jekyll-build-pages@v1
@@ -36,7 +37,7 @@ jobs:
       - name: Check site
         run: bash scripts/check-site.sh _site
 
-      - uses: actions/upload-pages-artifact@v3
+      - uses: actions/upload-pages-artifact@v5
         if: github.event_name != 'pull_request'
 
   deploy:
@@ -48,4 +49,4 @@ jobs:
       url: ${{ steps.deployment.outputs.page_url }}
     steps:
       - id: deployment
-        uses: actions/deploy-pages@v4
+        uses: actions/deploy-pages@v5
